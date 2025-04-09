@@ -151,7 +151,6 @@ int main(int argc, char* argv[])
     // ---------------
     int value_filter = 0;
     int value_add = 0;
-    bool mode_arg = false;
     List l;
 
     if(argc < 2)
@@ -162,50 +161,45 @@ int main(int argc, char* argv[])
         if(strcmp(argv[i], "--help") == 0)
         {
             help();
-            mode_arg = true;
         }
             
         else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-v") == 0)
         {
             version();
-            mode_arg = true;
         }
             else if (sscanf(argv[i], "--filter%d", &value_filter))
         {
             filter_list(&l, value_filter);
-            mode_arg = true;
         }
         else if(strcmp(argv[i], "--reverse") == 0)
         {
             reverse_list(&l);
-            mode_arg = true;
         }
             else if (strcmp(argv[i], "--min") == 0)
         {
-            mode_arg = true;
+            //Code
         }
         else if (strcmp(argv[i], "--max") == 0)
         {
-            mode_arg = true;
+            //Code
         }
         else if (sscanf(argv[i], "--add%d", &value_add))
         {
-            mode_arg = true;
+            //Code
         }
         else if (strcmp(argv[i], "--sum") == 0)
         {
-            mode_arg = true;
+            //Code
         }
         else
         {
             FILE* f = fopen(argv[i], "r");
             if (f == NULL)
                 return 2;
+            if(f == NULL && argv[i][0] == '-')
+                return 1;
             fclose(f);
         }
-
-        if(argv[i][1] == '-' && argc <= 1)
-            return 1;
 
         
     }
