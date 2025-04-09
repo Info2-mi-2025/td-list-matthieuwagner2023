@@ -55,6 +55,21 @@ typedef struct
 // Fonctions de base
 void append(List* list, int value)
 {
+    if(list == NULL || list->head ==  NULL)
+        exit(1);
+
+    //Création nouveau noeud
+    Node* new_node = malloc(sizeof(Node));
+    new_node->next = NULL;
+    new_node->value = value;
+
+    //Liste est vide
+    if(list->head == NULL)
+    {
+        list->head = new_node;
+        list->tail = new_node;
+    }
+    
 }
 
 void free_list(List* list)
@@ -102,6 +117,11 @@ void help()
     printf("  --max             Affiche la valeur maximale de la liste\n");
 }
 
+void version()
+{
+    printf("version 1.0\n");
+}
+
 // Lecture fichier
 bool read_file(const char* filename, List* list)
 {
@@ -129,8 +149,30 @@ int main(int argc, char* argv[])
     // Ne pas modifier
     init_file();
     // ---------------
+    int value_filter = 0;
+    List l;
 
-    if(argc < 2) return 1;
+    if(argc < 2)
+        return 1;
+
+    for (size_t i = 0; i < argc; i++)
+    {
+        if(strcmp(argv[i], "--help") == 0)
+            help();
+        else if (strcmp(argv[i], "--version") == 0)
+            version();
+        else if (sscanf(argv[i], "--filter%d", &value_filter))
+        {
+            filter_list(&l, value_filter);
+        }
+        else if(strcmp(argv[i], "--reverse") == 0)
+            reverse_list(&l);
+        
+    }
     
+    
+    
+
+
     return 0;
 }
