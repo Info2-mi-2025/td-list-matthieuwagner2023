@@ -150,16 +150,17 @@ int main(int argc, char* argv[])
     init_file();
     // ---------------
     int value_filter = 0;
+    int value_add = 0;
     List l;
 
     if(argc < 2)
         return 1;
 
-    for (size_t i = 0; i < argc; i++)
+    for (size_t i = 1; i < argc; i++)
     {
         if(strcmp(argv[i], "--help") == 0)
             help();
-        else if (strcmp(argv[i], "--version") == 0)
+        else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-v") == 0)
             version();
         else if (sscanf(argv[i], "--filter%d", &value_filter))
         {
@@ -167,6 +168,29 @@ int main(int argc, char* argv[])
         }
         else if(strcmp(argv[i], "--reverse") == 0)
             reverse_list(&l);
+        else if (strcmp(argv[i], "--min") == 0)
+        {
+            /* code */
+        }
+        else if (strcmp(argv[i], "--max") == 0)
+        {
+            /* code */
+        }
+        else if (sscanf(argv[i], "--add%d", &value_add))
+        {
+            /* code */
+        }
+        else if (strcmp(argv[i], "--sum") == 0)
+        {
+            /* code */
+        }
+        else
+        {
+            FILE* f = fopen(argv[i], "r");
+            if (f == NULL)
+                return 2;
+            fclose(f);
+        }
         
     }
     
